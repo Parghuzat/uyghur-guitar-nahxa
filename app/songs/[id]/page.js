@@ -155,8 +155,7 @@ ${song.lyrics}`;
           />
           {copySuccess && (
             <div className="alert alert-success mt-3 mb-0">
-              ✓ Copied to clipboard! Please send this to the admin via WhatsApp,
-              Telegram, or email.
+              ✓ Copied to clipboard! Please send this to the admin.
             </div>
           )}
         </ModalBody>

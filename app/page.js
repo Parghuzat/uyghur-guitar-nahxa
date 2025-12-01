@@ -12,7 +12,7 @@ export default function Home() {
       >
         Uyghur Guitar Nahxa
       </h1>
-      <p className="text-muted">Select a song to view chords and lyrics.</p>
+
       <div className="list-group">
         {sortedSongs.map((song) => (
           <Link
