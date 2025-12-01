@@ -2,7 +2,19 @@
 import { useState, useMemo, use } from "react";
 import songs from "../../../data/songs.json";
 import Link from "next/link";
-import { Button, Container, Row, Col, Card, CardBody } from "reactstrap";
+import {
+  Button,
+  Container,
+  Row,
+  Col,
+  Card,
+  CardBody,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Input,
+} from "reactstrap";
 
 function transposeChordRoot(root, shift) {
   const sharpMap = { Db: "C#", Eb: "D#", Gb: "F#", Ab: "G#", Bb: "A#" };
@@ -42,6 +54,39 @@ export default function SongPage({ params }) {
   const { id } = use(params);
   const song = songs.find((s) => s.id === id);
   const [transpose, setTranspose] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editedLyrics, setEditedLyrics] = useState("");
+  const [copySuccess, setCopySuccess] = useState(false);
+
+  const toggleModal = () => {
+    if (!isModalOpen) {
+      setEditedLyrics(song.lyrics);
+      setCopySuccess(false);
+    }
+    setIsModalOpen(!isModalOpen);
+  };
+
+  const handleSubmit = () => {
+    const message = `Song Correction Report
+    
+Song: ${song.title}
+ID: ${song.id}
+
+Corrected Lyrics:
+${editedLyrics}
+
+---
+Original Lyrics:
+${song.lyrics}`;
+
+    navigator.clipboard.writeText(message).then(() => {
+      setCopySuccess(true);
+      setTimeout(() => {
+        setIsModalOpen(false);
+        setCopySuccess(false);
+      }, 2000);
+    });
+  };
 
   const transposedChords = useMemo(
     () => transposeChordPro(song ? song.chords : "", transpose),
@@ -76,6 +121,9 @@ export default function SongPage({ params }) {
             <Link href="/" className="btn btn-sm btn-dark">
               Home
             </Link>
+            <Button size="sm" color="warning" onClick={toggleModal}>
+              Report Error
+            </Button>
           </div>
           <Card>
             <CardBody>
@@ -89,6 +137,38 @@ export default function SongPage({ params }) {
           </Card>
         </Col>
       </Row>
+
+      <Modal isOpen={isModalOpen} toggle={toggleModal} size="lg">
+        <ModalHeader toggle={toggleModal}>Report Lyrics Error</ModalHeader>
+        <ModalBody>
+          <p className="text-muted small mb-2">
+            Edit the lyrics below to correct any errors. When you click Submit,
+            the correction will be copied to your clipboard so you can send it
+            to the admin.
+          </p>
+          <Input
+            type="textarea"
+            value={editedLyrics}
+            onChange={(e) => setEditedLyrics(e.target.value)}
+            rows={15}
+            style={{ fontFamily: "monospace", fontSize: "0.9rem" }}
+          />
+          {copySuccess && (
+            <div className="alert alert-success mt-3 mb-0">
+              ✓ Copied to clipboard! Please send this to the admin via WhatsApp,
+              Telegram, or email.
+            </div>
+          )}
+        </ModalBody>
+        <ModalFooter>
+          <Button color="secondary" onClick={toggleModal}>
+            Cancel
+          </Button>
+          <Button color="primary" onClick={handleSubmit}>
+            Submit (Copy to Clipboard)
+          </Button>
+        </ModalFooter>
+      </Modal>
     </Container>
   );
 }

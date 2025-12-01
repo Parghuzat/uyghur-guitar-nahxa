@@ -6,7 +6,10 @@ export default function Home() {
 
   return (
     <main className="container py-4">
-      <h1 className="mb-4" style={{ color: "black" }}>
+      <h1
+        className="mb-4"
+        style={{ color: "black", textAlign: "center" }} /*center h1 header*/
+      >
         Uyghur Guitar Nahxa
       </h1>
       <p className="text-muted">Select a song to view chords and lyrics.</p>
