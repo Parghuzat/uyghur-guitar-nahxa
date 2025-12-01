@@ -15,13 +15,16 @@ export default function Home() {
 
       <div className="list-group">
         {sortedSongs.map((song) => (
-          <Link
-            key={song.id}
-            href={`/songs/${song.id}`}
-            className="list-group-item list-group-item-action"
-          >
-            <span>{song.title}</span>
-          </Link>
+          <div key={song.id} className="list-group-item">
+            <Link
+              href={`/songs/${song.id}`}
+              className="list-group-item list-group-item-action"
+            >
+              <span>{song.title}</span>
+            </Link>
+            {/* Remove reference link */}
+            {/* <Link href={song.url}>Reference</Link> */}
+          </div>
         ))}
       </div>
     </main>

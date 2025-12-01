@@ -124,6 +124,13 @@ ${song.lyrics}`;
             <Button size="sm" color="warning" onClick={toggleModal}>
               Report Error
             </Button>
+            <Button
+              size="sm"
+              color="info"
+              onClick={() => window.open(song.url, "_blank")}
+            >
+              Song URL
+            </Button>
           </div>
           <Card>
             <CardBody>
@@ -135,6 +142,11 @@ ${song.lyrics}`;
               </pre>
             </CardBody>
           </Card>
+          <div className="text-center mt-3">
+            <Link href={song.url} className="btn btn-link">
+              Reference
+            </Link>
+          </div>
         </Col>
       </Row>
 
