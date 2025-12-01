@@ -6,7 +6,9 @@ export default function Home() {
 
   return (
     <main className="container py-4">
-      <h1 className="mb-4">Uyghur Guitar Nahxa</h1>
+      <h1 className="mb-4" style={{ color: "black" }}>
+        Uyghur Guitar Nahxa
+      </h1>
       <p className="text-muted">Select a song to view chords and lyrics.</p>
       <div className="list-group">
         {sortedSongs.map((song) => (
