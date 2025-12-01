@@ -142,11 +142,6 @@ ${song.lyrics}`;
               </pre>
             </CardBody>
           </Card>
-          <div className="text-center mt-3">
-            <Link href={song.url} className="btn btn-link">
-              Reference
-            </Link>
-          </div>
         </Col>
       </Row>
 

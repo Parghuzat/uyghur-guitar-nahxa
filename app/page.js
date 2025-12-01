@@ -22,8 +22,6 @@ export default function Home() {
             >
               <span>{song.title}</span>
             </Link>
-            {/* Remove reference link */}
-            {/* <Link href={song.url}>Reference</Link> */}
           </div>
         ))}
       </div>
